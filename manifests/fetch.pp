@@ -6,7 +6,13 @@ define fetchfact::fetch ( $url, $factfile ) {
   case $factfile {
     /.*\.json$/: {
       case $osfamily {
-        'redhat','debian','suse': {
+        'redhat': {
+          package { 'rubygem-json':
+            ensure => installed
+          }
+        }
+        
+        'debian','suse': {
           package { 'ruby-json':
             ensure => installed
           }
