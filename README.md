@@ -2,7 +2,7 @@ fetchfact
 =========
 
 This module fetches a JSON, YAML or text file from a defined URL,
-and stores it in `/etc/facter/facts.d`. From there, its contents
+and stores it in `/etc/puppetlabs/facter/facts.d`. From there, its contents
 can be picked up by `facter-dot-d` and thus be available
 as custom facts to Facter.
 
@@ -20,7 +20,7 @@ Example
 
 To fetch a dynamically generated JSON document from
 `http://service.example.com/something?foo=bar` and store it in
-`/etc/facter/facts.d/something.json`, put the following
+`/etc/puppetlabs/facter/facts.d/something.json`, put the following
 in your manifest:
 
     include fetchfact
