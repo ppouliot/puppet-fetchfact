@@ -2,13 +2,13 @@ class fetchfact {
 
   case $::kernel {
     'Linux':{
-      $local_facter_base_path = "/etc/factor"
+      $local_factor_base_path = "/etc/factor"
     }
     'windows':{
-      $local_facter_base_path = "C:/ProgramData/PuppetLabs/facter"
+      $local_factor_base_path = "C:/ProgramData/PuppetLabs/factor"
     }
     default:{
-      $local_facter_base_path = "/etc/puppetlabs/facter"
+      $local_factor_base_path = "/etc/puppetlabs/factor"
     }
   }
   
