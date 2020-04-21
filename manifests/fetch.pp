@@ -2,19 +2,21 @@ define fetchfact::fetch ( $url, $factfile ) {
 
   include fetchfact
   #path = "/etc/puppetlabs/facter/facts.d/${factfile}"
-  
+
   case $::kernel {
     'Linux':{
       $local_fact_path = "/etc/facter/facts.d"
+      $path = "${local_fact_path}/${factfile}"
     }
     'windows':{
       $local_fact_path = "C:/ProgramData/PuppetLabs/facter/facts.d"
+      $path = "${local_fact_path}/${factfile}"
     }
     default:{
       $local_fact_path = "/etc/puppetlabs/facter/facts.d"
+      $path = "${local_fact_path}/${factfile}"
     }
   }
-  $local_fact_file = "${local_fact_path}/${fact_file}"
 
   case $factfile {
     /.*\.json$/: {
@@ -24,7 +26,7 @@ define fetchfact::fetch ( $url, $factfile ) {
             ensure => installed
           }
         }
-        
+
         'debian','suse': {
           package { 'ruby-json':
             ensure => installed
@@ -46,7 +48,7 @@ define fetchfact::fetch ( $url, $factfile ) {
 
   wget::fetch { $url:
     source      => $url,
-    destination => $local_fact_file,
+    destination => $path,
     require     => File[$local_fact_path]
   }
 
