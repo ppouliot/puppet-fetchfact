@@ -11,8 +11,8 @@ class fetchfact {
     'windows':{
       $local_facter_base_path = "C:/ProgramData/PuppetLabs/facter"
       File {
-        owner => 'Administrator',
-        group => 'Administrators',
+        owner => 'PUP_LCL_ACCOUNT_ADMINISTRATORS',
+        group => 'PUP_LCL_ACCOUNT_ADMINISTRATORS',
       }
     }
     default:{
