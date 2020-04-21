@@ -1,7 +1,19 @@
 define fetchfact::fetch ( $url, $factfile ) {
 
   include fetchfact
-  $path = "/etc/puppetlabs/facter/facts.d/${factfile}"
+  #path = "/etc/puppetlabs/facter/facts.d/${factfile}"
+  
+  case $::kernel {
+    'Linux':{
+      $fact_path = "/etc/facter/facts.d/${factfile}"
+    }
+    'windows':{
+      $fact_path = "C:/ProgramData/PuppetLabs/facter/facts.d/${factfile}"
+    }
+    default:{
+      $fact_path = "/etc/puppetlabs/facter/facts.d/${factfile}"
+    }
+  }
 
   case $factfile {
     /.*\.json$/: {
@@ -34,7 +46,7 @@ define fetchfact::fetch ( $url, $factfile ) {
   wget::fetch { $url:
     source      => $url,
     destination => $path,
-    require     => File['/etc/puppetlabs/facter/facts.d']
+    require     => File[$fact_path]
   }
 
 }
