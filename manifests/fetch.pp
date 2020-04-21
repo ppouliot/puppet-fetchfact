@@ -14,7 +14,7 @@ define fetchfact::fetch ( $url, $factfile ) {
       $local_fact_path = "/etc/puppetlabs/facter/facts.d"
     }
   }
-  local_fact_file = "${local_fact_path}/${fact_file}"
+  $local_fact_file = "${local_fact_path}/${fact_file}"
 
   case $factfile {
     /.*\.json$/: {
@@ -47,7 +47,7 @@ define fetchfact::fetch ( $url, $factfile ) {
   wget::fetch { $url:
     source      => $url,
     destination => $local_fact_file,
-    require     => File[$fact_path]
+    require     => File[$local_fact_path]
   }
 
 }
