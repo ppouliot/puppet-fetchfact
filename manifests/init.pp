@@ -3,26 +3,34 @@ class fetchfact {
   case $::kernel {
     'Linux':{
       $local_facter_base_path = "/etc/facter"
+      File {
+        owner => 'root',
+        group => 'root',
+      }
     }
     'windows':{
       $local_facter_base_path = "C:/ProgramData/PuppetLabs/facter"
+      File {
+        owner => 'Administrator',
+        group => 'Administrators',
+      }
     }
     default:{
       $local_facter_base_path = "/etc/puppetlabs/facter"
+      File {
+        owner => 'root',
+        group => 'root',
+      }
     }
   }
-  
+
   file { $local_facter_base_path:
     ensure => directory,
-    owner  => root,
-    group  => root,
     mode   => '0755'
   }
 
   file { "${local_facter_base_path}/facts.d":
     ensure  => directory,
-    owner   => root,
-    group   => root,
     mode    => '0755',
     require => File[$local_facter_base_path]
   }
